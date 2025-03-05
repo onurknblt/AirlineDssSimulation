@@ -12,22 +12,22 @@ def forecast_demand(sales_data):
     try:
         df = pd.DataFrame(sales_data)
 
-        # Veriyi zaman sırasına göre düzenleyelim
+        # Tarih formatına çevir ve sırala
         df['sale_date'] = pd.to_datetime(df['sale_date'])
         df.set_index('sale_date', inplace=True)
         df = df.sort_index()
 
-        # Veriyi günlük veya aylık frekansta topluyoruz (günlük frekans örneği)
-        df = df.resample('D').sum()  # 'D' günlük frekans demek
+        # **Aylık** bazda veriyi yeniden düzenle
+        df = df.resample('ME').sum()
 
-        # Eğer yeterli veri yoksa hata döndürelim
+        # Eğer yeterli veri yoksa hata döndür
         if len(df) < 6:
-            return {'error': 'ARIMA için yeterli veri yok (en az 6 veri noktası gerekli).'}
+            return {'error': 'ARIMA için yeterli veri yok (en az 6 ay verisi gerekli).'}
 
-        # ARIMA modelini çalıştırıyoruz
-        model = ARIMA(df['number_of_tickets'], order=(5,1,0))  # ARIMA modelinin parametrelerini belirledik
+        # ARIMA modelini tanımla (Aylık tahmin için)
+        model = ARIMA(df['number_of_tickets'], order=(5,1,0))  # (p,d,q) parametreleri
         model_fit = model.fit()
-        forecast = model_fit.forecast(steps=6)
+        forecast = model_fit.forecast(steps=6)  # **6 Aylık tahmin**
 
         return {'forecast': forecast.tolist()}
     
