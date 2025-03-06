@@ -6,7 +6,6 @@ import logging
 
 app = Flask(__name__)
 
-logging.basicConfig(filename="errors.log", level=logging.ERROR, format="%(asctime)s - %(message)s")
 
 def forecast_demand(sales_data):
     try:

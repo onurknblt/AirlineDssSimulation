@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const axios = require('axios');
 
-const getForecastByFlightId = async (req, res) => {
+const getDemandForecastByFlightId = async (req, res) => {
   const flightId = req.params.flight_id;
 
   try {
@@ -51,4 +51,4 @@ const getForecastByFlightId = async (req, res) => {
   }
 };
 
-module.exports = { getForecastByFlightId };
+module.exports = { getDemandForecastByFlightId };
