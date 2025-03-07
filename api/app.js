@@ -5,6 +5,7 @@ var logger = require('morgan');
 
 const demandRouter = require('./routes/demandRoutes');
 const revenueRouter = require('./routes/revenueRoutes');
+const satisfactionRouter = require('./routes/satisfactionRoutes');
 
 var app = express();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 
 app.use('/demand', demandRouter);
 app.use('/revenue', revenueRouter);
+app.use('/satisfaction', satisfactionRouter);
 
 
 app.listen(3000, () => {
