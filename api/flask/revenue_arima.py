@@ -100,4 +100,4 @@ def predict():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)  # Bilgileri log'la
-    app.run(debug=True, port=5001)
+    app.run(debug=False, port=5001)
